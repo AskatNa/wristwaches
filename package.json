@@ -1,0 +1,15 @@
+{
+  "name": "wristwaches",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Askat Narinbetov and Baltabekov Nurislam",
+  "license": "ISC",
+  "description": "This is the WristWatches project for advanced database course ",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
