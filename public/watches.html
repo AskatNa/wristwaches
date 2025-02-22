@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watches Store</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h2>Watches Store</h2>
+<div id="watch-list" class="watch-grid"></div>
+
+<script>
+  async function fetchWatches() {
+    const response = await fetch("/watches");
+    const watches = await response.json();
+    const watchList = document.getElementById("watch-list");
+
+    watchList.innerHTML = "";
+    watches.forEach(watch => {
+      const watchCard = document.createElement("div");
+      watchCard.classList.add("watch-card");
+      watchCard.innerHTML = `
+                    <img src="${watch.image}" alt="${watch.brand} ${watch.model}" class="watch-image">
+                    <div class="watch-details">
+                        <h3>${watch.brand} ${watch.model}</h3>
+                        <p>Price: $${watch.price}</p>
+                        <button onclick="addToCart('${watch._id}')">Add to Cart</button>
+                    </div>
+                `;
+      watchList.appendChild(watchCard);
+    });
+  }
+
+  async function addToCart(watchId) {
+    const response = await fetch("/cart/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ watchId })
+    });
+
+    if (response.ok) {
+      alert("Watch added to cart!");
+    } else {
+      alert("Failed to add watch to cart.");
+    }
+  }
+
+  fetchWatches();
+</script>
+</body>
+</html>
